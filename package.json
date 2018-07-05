@@ -7,7 +7,7 @@
   },
   "main": "src/main.js",
   "scripts": {
-    "karate": "node src/main.js --input data/karate.json --input data/karate.out.json"
+    "karate": "node src/main.js --input data/karate.json --output data/karate.out.json"
   },
   "author": "Oh-Hyun Kwon",
   "license": "BSD-3-Clause",
