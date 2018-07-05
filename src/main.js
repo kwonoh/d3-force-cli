@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const commandLineArgs = require('command-line-args');
 const d3 = require('d3-force');
 const fs = require('fs');
