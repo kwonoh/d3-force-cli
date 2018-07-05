@@ -7,7 +7,7 @@ const optionDefinitions = [
         name: 'output',
         alias: 'o',
         type: String,
-        help: 'If empty, the programm will inplace the input file.'
+        help: 'If empty, the program will inplace the input file.'
     },
     {name: 'link-distance', type: Number},
     {name: 'link-iterations', type: Number},
