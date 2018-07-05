@@ -5,7 +5,8 @@ const d3 = require('d3-force');
 const fs = require('fs');
 
 const optionDefinitions = [
-    {name: 'input', alias: 'i', type: String}, {
+    {name: 'input', alias: 'i', type: String},
+    {
         name: 'output',
         alias: 'o',
         type: String,
@@ -13,7 +14,8 @@ const optionDefinitions = [
     },
     {name: 'link-distance', type: Number},
     {name: 'link-iterations', type: Number},
-    {name: 'charge-strength', type: Number}
+    {name: 'charge-strength', type: Number},
+    {name: 'log-perf', type: Boolean},
 ];
 
 function main(options)
@@ -23,7 +25,8 @@ function main(options)
 
         try {
             const g = JSON.parse(fs.readFileSync(options.input));
-            computeLayout(g, options, () => {
+            computeLayout(g, options, (computeWallSecs) => {
+                if (options.logPerf) console.log(computeWallSecs);
                 fs.writeFileSync(options.output, JSON.stringify(g));
             });
         }
@@ -55,15 +58,16 @@ function computeLayout(g, options, onend)
         });
     };
 
+    const started = process.hrtime();
     const simulation = d3.forceSimulation()
                            .force('link', forceLink)
                            .force('charge', forceCharge)
                            .force('center', d3.forceCenter())
                            .on('end', () => {
+                               const diff = process.hrtime(started);
                                copyPosition();
-                               if (onend) onend();
+                               if (onend) onend(diff[0] + diff[1] / 1e9);
                            });
-
     simulation.nodes(h.nodes);
     forceLink.links(h.links);
 }
