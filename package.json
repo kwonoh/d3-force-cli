@@ -7,7 +7,7 @@
   },
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "karate": "node src/main.js --input data/karate.json --input data/karate.out.json"
   },
   "author": "Oh-Hyun Kwon",
   "license": "BSD-3-Clause",
