@@ -45,11 +45,14 @@ function computeLayout(g, options, onend)
 {
     const h = JSON.parse(JSON.stringify(g));
     const forceLink = d3.forceLink();
-    if (options.linkDistance) forceLink.distance(options.linkDistance);
-    if (options.linkIterations) forceLink.iterations(options.linkIterations);
+    if (options.linkDistance !== undefined)
+        forceLink.distance(options.linkDistance);
+    if (options.linkIterations !== undefined)
+        forceLink.iterations(options.linkIterations);
 
     const forceCharge = d3.forceManyBody();
-    if (options.chargeStrength) forceCharge.strength(options.chargeStrength);
+    if (options.chargeStrength !== undefined)
+        forceCharge.strength(options.chargeStrength);
 
     const copyPosition = () => {
         h.nodes.forEach((u) => {
