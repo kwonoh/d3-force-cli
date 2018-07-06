@@ -26,12 +26,13 @@ function main(options)
         try {
             const g = JSON.parse(fs.readFileSync(options.input));
             computeLayout(g, options, (computeWallSecs) => {
-                if (options.logPerf) console.log(computeWallSecs);
+                if (options.logPerf)
+                    console.log(`d3-force wall seconds: ${computeWallSecs}`);
                 fs.writeFileSync(options.output, JSON.stringify(g));
             });
         }
         catch (err) {
-            console.error(f`Unable to parse file ${options.input}`);
+            console.error(`Unable to parse file ${options.input}`);
             throw err;
         }
     }
