@@ -10,7 +10,7 @@ const optionDefinitions = [
         name: 'output',
         alias: 'o',
         type: String,
-        help: 'If empty, the program will inplace the input file.'
+        help: 'If empty, the program will overwrite the input file in place.'
     },
     {name: 'link-distance', type: Number},
     {name: 'link-iterations', type: Number},
