@@ -15,6 +15,7 @@ const optionDefinitions = [
     {name: 'link-distance', type: Number},
     {name: 'link-iterations', type: Number},
     {name: 'charge-strength', type: Number},
+    {name: 'velocity-decay', type: Number},
     {name: 'log-perf', type: Boolean},
 ];
 
@@ -72,6 +73,10 @@ function computeLayout(g, options, onend)
                                copyPosition();
                                if (onend) onend(diff[0] + diff[1] / 1e9);
                            });
+
+    if (options.velocityDecay !== undefined)
+        simulation.velocityDecay(options.velocityDecay);
+
     simulation.nodes(h.nodes);
     forceLink.links(h.links);
 }
