@@ -16,6 +16,7 @@ const optionDefinitions = [
     {name: 'link-iterations', type: Number},
     {name: 'charge-strength', type: Number},
     {name: 'velocity-decay', type: Number},
+    {name: 'rand-init', type: Boolean},
     {name: 'log-perf', type: Boolean},
 ];
 
@@ -26,6 +27,8 @@ function main(options)
 
         try {
             const g = JSON.parse(fs.readFileSync(options.input));
+            if (options.randInit) initializeNodePosition(g.nodes);
+
             computeLayout(g, options, (computeWallSecs) => {
                 if (options.logPerf)
                     console.log(`d3-force wall seconds: ${computeWallSecs}`);
@@ -55,7 +58,6 @@ function initializeNodePosition(nodes)
 function computeLayout(g, options, onend)
 {
     const h = JSON.parse(JSON.stringify(g));
-    initializeNodePosition(h.nodes);
 
     const forceLink = d3.forceLink();
     if (options.linkDistance !== undefined)
