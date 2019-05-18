@@ -80,17 +80,21 @@ function computeLayout(g, options, onend)
                            .force('link', forceLink)
                            .force('charge', forceCharge)
                            .force('center', d3.forceCenter())
-                           .on('end', () => {
-                               const diff = process.hrtime(started);
-                               copyPosition();
-                               if (onend) onend(diff[0] + diff[1] / 1e9);
-                           });
+                           .stop();
 
     if (options.velocityDecay !== undefined)
         simulation.velocityDecay(options.velocityDecay);
 
     simulation.nodes(h.nodes);
     forceLink.links(h.links);
+
+    while (simulation.alpha() >= simulation.alphaMin()) {
+        simulation.tick();
+    }
+
+    const diff = process.hrtime(started);
+    copyPosition();
+    if (onend) onend(diff[0] + diff[1] / 1e9);
 }
 
 if (require.main === module) {
