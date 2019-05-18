@@ -42,9 +42,21 @@ function main(options)
     }
 }
 
+function initializeNodePosition(nodes)
+{
+    nodes.forEach((node) => {
+        const theta = 2 * Math.PI * Math.random();
+        const r = 10 * Math.sqrt(Math.random());
+        node.x = r * Math.cos(theta);
+        node.y = r * Math.sin(theta);
+    });
+}
+
 function computeLayout(g, options, onend)
 {
     const h = JSON.parse(JSON.stringify(g));
+    initializeNodePosition(h.nodes);
+
     const forceLink = d3.forceLink();
     if (options.linkDistance !== undefined)
         forceLink.distance(options.linkDistance);
